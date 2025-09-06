@@ -1,0 +1,229 @@
+@import "tailwindcss";
+
+@theme inline {
+  --font-display: "Inter", "sans-serif";
+
+  /* 🎨 Primary Color (Sky Blue) */
+  --color-primary-500: #39A4D8;     /* Fresh, modern, used for buttons/CTAs */
+  --color-primary-dark: #2C3E94;    /* Royal Blue for headings/highlights */
+  --color-primary-light: #FAFAF8;   /* Off White as light version of primary */
+
+  /* 🌸 Accent Color (Royal Blue) */
+  --color-accent-soft: #E0E0E0;     /* Light Gray for borders/dividers */
+  --color-accent-tint: #FAFAF8;     /* Off White (same as background) */
+  --color-accent-hover: #2C3E94;    /* Royal Blue hover */
+  --color-accent-glow: #2C3E94;     /* Royal Blue used for glow */
+
+  /* ⚪ Neutral / Base Colors */
+  --color-white: #FFFFFF;           /* Pure white */
+  --color-off-white: #FAFAF8;       /* Background color */
+  --color-text-muted: #666666;      /* Medium gray for subtext */
+  --color-text-strong: #333333;     /* Dark gray for primary body text */
+
+  /* ✅ Status Colors */
+  --color-success: #4CAF50;         /* Soft green for success */
+  --color-danger: #F44336;          /* Soft red for errors */
+
+  /* 🌈 Gradient Colors (Primary + Accent) */
+  --gradient-blue-start: #39A4D8;   /* Sky Blue */
+  --gradient-blue-end: #2C3E94;     /* Royal Blue */
+  --gradient-purple-start: #39A4D8; /* Reuse for consistency */
+  --gradient-purple-end: #2C3E94;
+
+  --spacing: 0.25rem;
+
+  /* Global Background and Text Color */
+  --color-background: var(--color-off-white);
+  --color-text: var(--color-text-strong);
+
+  /* gradient bg from acternity  */
+    --animate-first: moveVertical 30s ease infinite;
+  --animate-second: moveInCircle 20s reverse infinite;
+  --animate-third: moveInCircle 40s linear infinite;
+  --animate-fourth: moveHorizontal 40s ease infinite;
+  --animate-fifth: moveInCircle 20s ease infinite;
+
+  /* gradient bg from acternity  */
+    --animate-first: moveVertical 30s ease infinite;
+  --animate-second: moveInCircle 20s reverse infinite;
+  --animate-third: moveInCircle 40s linear infinite;
+  --animate-fourth: moveHorizontal 40s ease infinite;
+  --animate-fifth: moveInCircle 20s ease infinite;
+}
+
+@layer base {
+  html {
+    background-color: var(--color-background);
+    color: var(--color-text);
+    font-family: var(--font-display);
+  }
+
+  body {
+    background-color: inherit;
+    color: inherit;
+    margin: 0;
+    padding: 0;
+  }
+
+  /* Animated Background Elements */
+  .bg-gradient-radial {
+    background: radial-gradient(
+      circle at center,
+      var(--gradient-blue-start) 0%,
+      var(--gradient-purple-end) 100%
+    );
+  }
+
+  .bg-gradient-animation {
+    background: linear-gradient(
+      -45deg,
+      var(--gradient-blue-start),
+      var(--gradient-blue-end),
+      var(--gradient-purple-start),
+      var(--gradient-purple-end)
+    );
+    background-size: 400% 400%;
+    animation: gradient 15s ease infinite;
+  }
+
+  @keyframes gradient {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+
+  /* gradeint bg effect for aceternity */
+
+  @keyframes moveHorizontal {
+  0% {
+    transform: translateX(-50%) translateY(-10%);
+  }
+  50% {
+    transform: translateX(50%) translateY(10%);
+  }
+  100% {
+    transform: translateX(-50%) translateY(-10%);
+  }
+}
+ 
+@keyframes moveInCircle {
+  0% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(180deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+ 
+@keyframes moveVertical {
+  0% {
+    transform: translateY(-50%);
+  }
+  50% {
+    transform: translateY(50%);
+  }
+  100% {
+    transform: translateY(-50%);
+  }
+}
+
+
+
+  /* Text Gradient Effect */
+  .text-gradient {
+    background: linear-gradient(
+      90deg,
+      var(--color-primary-500),
+      var(--color-accent-glow)
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    display: inline-block;
+  }
+
+  /* Glow Shadow Effects */
+  .shadow-glow {
+    box-shadow: 0 0 15px rgba(44, 62, 148, 0.5); /* Royal Blue glow */
+  }
+}
+
+
+
+/* Gradient Background Animations */
+.bg-gradient-animation {
+  background: linear-gradient(135deg, var(--color-primary-500), var(--color-primary-dark));
+  background-size: 400% 400%;
+  animation: gradient 12s ease infinite;
+}
+
+.bg-radial {
+  background: radial-gradient(circle, var(--color-primary-500), var(--color-primary-dark));
+}
+
+.text-gradient {
+  background: linear-gradient(to right, var(--color-primary-500), var(--color-primary-dark));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.shadow-glow {
+  box-shadow: 0 0 20px rgba(57, 164, 216, 0.5);
+}
+
+/* Animations */
+@keyframes moveHorizontal {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(20px); }
+}
+
+@keyframes moveInCircle {
+  0% { transform: translate(0, 0); }
+  25% { transform: translate(15px, -15px); }
+  50% { transform: translate(0, -30px); }
+  75% { transform: translate(-15px, -15px); }
+  100% { transform: translate(0, 0); }
+}
+
+@keyframes gradient {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+
+
+
+/* Apply to elements with the class 'thin-scrollbar' */
+.thin-scrollbar {
+  scrollbar-width: thin; /* Firefox */
+  scrollbar-color: rgba(100, 116, 139, 0.4) transparent; /* thumb color and track */
+}
+
+/* WebKit-based browsers */
+.thin-scrollbar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.thin-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.thin-scrollbar::-webkit-scrollbar-thumb {
+  background-color: rgba(100, 116, 139, 0.4); /* slate-500 with opacity */
+  border-radius: 8px;
+  border: 2px solid transparent;
+  background-clip: content-box;
+}
