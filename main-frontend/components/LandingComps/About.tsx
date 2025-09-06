@@ -233,7 +233,7 @@ export default function AboutSection() {
                   </motion.li>
                 ))}
               </ul>
-              <motion.div variants={itemVariants} className="mt-8 pt-4">
+              {/* <motion.div variants={itemVariants} className="mt-8 pt-4">
                 <Link
                   href="/services"
                   className="inline-flex items-center px-8 py-3 rounded-full font-semibold text-sm transition transform hover:scale-105 shadow-glow"
@@ -259,7 +259,7 @@ export default function AboutSection() {
                     />
                   </svg>
                 </Link>
-              </motion.div>
+              </motion.div> */}
             </motion.div>
           </div>
         </div>

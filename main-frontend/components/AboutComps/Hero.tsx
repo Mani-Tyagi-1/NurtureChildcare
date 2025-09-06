@@ -191,7 +191,8 @@ const NurtureChildcareHero = () => {
               through love, care, and learning.
             </p>
             <div className="flex flex-col sm:flex-row justify-center lg:justify-start gap-4">
-              <button
+              <a
+                href="/blogs"
                 className="px-6 py-3 font-medium text-white transition-all  rounded-full hover:shadow-lg"
                 style={{
                   backgroundColor:
@@ -201,10 +202,11 @@ const NurtureChildcareHero = () => {
                     "linear-gradient(135deg, var(--gradient-purple-start), var(--gradient-blue-end))",
                 }}
               >
-                Our Programs
-              </button>
-              <button
-                className=" hidden md:block px-6 py-3 font-medium text-blue-600 transition-all bg-white border border-blue-600 rounded-full hover:bg-blue-50 hover:shadow-md"
+                Our Blogs
+              </a>
+              <a
+                href="/contact"
+                className=" hidden md:block px-6 py-3 font-medium text-blue-600 transition-all bg-white border border-blue-600 rounded-full hover:bg-blue-50 hover:shadow-md cursor-pointer"
                 style={{
                   border:
                     "linear-gradient(135deg, var(--gradient-purple-start), var(--gradient-blue-end))",
@@ -214,7 +216,7 @@ const NurtureChildcareHero = () => {
                 }}
               >
                 Contact Us
-              </button>
+              </a>
             </div>
           </div>
 

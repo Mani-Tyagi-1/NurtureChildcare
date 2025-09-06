@@ -203,7 +203,7 @@ export default function Hero() {
             </motion.p>
 
             <motion.a
-              href="/template"
+              href="/about"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               whileHover={{
@@ -257,7 +257,7 @@ export default function Hero() {
             </motion.p>
 
             <motion.a
-              href="/template"
+              href="/about"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               whileHover={{

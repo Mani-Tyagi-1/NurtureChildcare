@@ -226,7 +226,6 @@ import { motion } from "framer-motion";
 
 interface Newsletter {
   name: string;
-  // message: string;
   pdfUrl: string;
   createdAt: string;
 }
@@ -256,10 +255,43 @@ const NewsletterSection = () => {
     fetchNewsletters();
   }, []);
 
+  const filenameFromUrl = (url: string) => {
+    try {
+      const u = new URL(url);
+      const last =
+        u.pathname.split("/").filter(Boolean).pop() || "newsletter.pdf";
+      return decodeURIComponent(last);
+    } catch {
+      return "newsletter.pdf";
+    }
+  };
+
+  const downloadPdf = async (url: string, fallbackName?: string) => {
+    try {
+      const res = await fetch(url, { mode: "cors" });
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const blob = await res.blob();
+
+      const objectUrl = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = objectUrl;
+      a.download = fallbackName || filenameFromUrl(url);
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      // Revoke after a tick to ensure the click finishes
+      setTimeout(() => URL.revokeObjectURL(objectUrl), 1000);
+    } catch (err) {
+      console.warn("Blob download failed, opening in new tab instead:", err);
+      // Fallback: open in a new tab (may view inline depending on server headers)
+      window.open(url, "_blank", "noopener");
+    }
+  };
+
   return (
     <section className="py-16 px-4 relative overflow-hidden">
       {/* Creative background elements */}
-      <div className="absolute inset-0 opacity-50 overflow-hidden">
+      <div className="absolute inset-0 opacity-50 overflow-hidden pointer-events-none">
         <div className="absolute inset-0 bg-gradient-to-br from-blue-50 to-blue-100"></div>
         <div className="absolute bottom-0 left-0 w-64 h-64 rounded-full bg-[#39A4D8] opacity-80 blur-3xl animate-float-slow"></div>
         <div className="absolute -top-30 -right-30 w-80 h-80 rounded-full bg-[#1C6B99] opacity-50 border blur-2xl animate-float-medium"></div>
@@ -303,11 +335,10 @@ const NewsletterSection = () => {
           <div
             key={index}
             className="bg-white rounded-2xl p-6 flex flex-col justify-between group relative overflow-hidden transition-all duration-300 hover:scale-[1.02] shadow-md hover:shadow-xl"
-            style={{
-              borderLeft: "4px solid #39A4D8",
-            }}
+            style={{ borderLeft: "4px solid #39A4D8" }}
           >
             <div className="absolute top-0 left-0 w-0 h-full bg-blue-50 -z-10 transition-all duration-500 ease-out group-hover:w-full"></div>
+
             <div>
               <div className="flex items-center mb-3">
                 <div className="h-8 w-2 bg-[#39A4D8] rounded-full mr-3 transform transition-transform duration-300 group-hover:scale-y-125"></div>
@@ -319,16 +350,28 @@ const NewsletterSection = () => {
                 {newsletter.createdAt.slice(0, 10)}
               </p>
             </div>
+
             <div className="mt-4 text-right">
-              <a
-                href={newsletter.pdfUrl}
-                className="inline-flex items-center px-4 py-2 rounded-full text-white  font-medium transition-all duration-300  transform group-hover:-translate-y-1"
+              <motion.button
+                type="button"
+                whileHover={{ scale: 1.03 }}
+                whileTap={{ scale: 0.98 }}
+                onClick={() =>
+                  downloadPdf(
+                    newsletter.pdfUrl,
+                    `${newsletter.name.replace(
+                      /\s+/g,
+                      "_"
+                    )}-${newsletter.createdAt.slice(0, 10)}.pdf`
+                  )
+                }
+                className="inline-flex items-center px-4 py-2 rounded-full text-white font-medium transition-all duration-300 transform group-hover:-translate-y-1 shadow-md cursor-pointer"
                 style={{
-                  backgroundColor: "linear-gradient(135deg, var(--gradient-purple-start), var(--gradient-blue-end))",
-                  boxShadow:"0 4px 12px rgba(124, 58, 237, 0.25)",
-                  background:"linear-gradient(135deg, var(--gradient-purple-start), var(--gradient-blue-end))"
+                  boxShadow: "0 4px 12px rgba(124, 58, 237, 0.25)",
+                  background:
+                    "linear-gradient(135deg, var(--gradient-purple-start), var(--gradient-blue-end))",
                 }}
-                download
+                aria-label={`Download ${newsletter.name} PDF`}
               >
                 <span>Download PDF</span>
                 <svg
@@ -337,6 +380,7 @@ const NewsletterSection = () => {
                   stroke="currentColor"
                   viewBox="0 0 24 24"
                   xmlns="http://www.w3.org/2000/svg"
+                  aria-hidden="true"
                 >
                   <path
                     strokeLinecap="round"
@@ -345,8 +389,9 @@ const NewsletterSection = () => {
                     d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3V10"
                   />
                 </svg>
-              </a>
+              </motion.button>
             </div>
+
             <div className="absolute top-0 right-0 w-0 h-0 border-t-[40px] border-r-[40px] border-t-transparent border-r-[#39A4D8] opacity-20 transition-opacity duration-300 group-hover:opacity-80"></div>
           </div>
         ))}

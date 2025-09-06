@@ -72,7 +72,6 @@ export default function ContactSection() {
     try {
       console.log("Form data submitted:", formData);
       await new Promise((resolve) => setTimeout(resolve, 1500));
-
       setSubmitMessage("Message sent successfully!");
       setFormData({ name: "", email: "", message: "" });
     } catch (error) {

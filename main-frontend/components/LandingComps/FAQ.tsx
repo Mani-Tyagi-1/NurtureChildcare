@@ -303,7 +303,7 @@ export default function FAQSection() {
           className="text-center mt-12"
         >
           <a
-            href="#"
+            href="/contact"
             className="inline-flex items-center px-6 py-3 rounded-full font-medium transition-all duration-300 text-white"
             style={{
               background:
