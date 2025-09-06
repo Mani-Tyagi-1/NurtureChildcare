@@ -123,43 +123,6 @@ export default function BlogDetail({ blog }: { blog: Blog }) {
     };
   }, []);
 
-  const shapes = [
-    {
-      top: "5%",
-      left: "10%",
-      size: "w-32 h-32",
-      opacity: "opacity-10",
-      type: "circle",
-    },
-    {
-      top: "15%",
-      right: "5%",
-      size: "w-40 h-40",
-      opacity: "opacity-5",
-      type: "square",
-    },
-    {
-      top: "70%",
-      left: "5%",
-      size: "w-24 h-24",
-      opacity: "opacity-20",
-      type: "circle",
-    },
-    {
-      top: "60%",
-      right: "10%",
-      size: "w-48 h-48",
-      opacity: "opacity-10",
-      type: "square",
-    },
-    {
-      top: "40%",
-      left: "25%",
-      size: "w-36 h-36",
-      opacity: "opacity-5",
-      type: "circle",
-    },
-  ];
 
   // //////////////////////////////////////////
 
@@ -247,7 +210,7 @@ export default function BlogDetail({ blog }: { blog: Blog }) {
                 <img
                   src={blog.images[0]}
                   alt={blog.title}
-                  className="w-full h-[25rem] lg:h-[30 rem] object-cover  transition-transform duration-700 group-hover:scale-105"
+                  className="w-full h-full md:h-[25rem] lg:h-[30 rem] object-cover  transition-transform duration-700 group-hover:scale-105"
                 />
               </div>
             </div>

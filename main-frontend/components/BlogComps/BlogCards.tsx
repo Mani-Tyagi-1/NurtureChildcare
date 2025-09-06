@@ -239,7 +239,7 @@ export default function BlogCards() {
           const formattedDate = format(new Date(post.createdAt), "MMM d, yyyy");
           return (
             <div key={post._id} className="h-full">
-              <CardContainer className="inter-var">
+              <CardContainer className="inter-var w-full h-full">
                 <CardBody className="bg-gradient-to-tl from-[#bce4f2] to-[#ffffff] relative group/card border-zinc-200 h-full rounded-xl p-8 border shadow-md hover:shadow-xl hover:shadow-slate-400 transition-all duration-300">
 
                   {/* Title */}

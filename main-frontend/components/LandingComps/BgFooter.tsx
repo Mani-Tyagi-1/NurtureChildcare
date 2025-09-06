@@ -1,6 +1,6 @@
 const BackgroundFooter = () => {
   return (
-    <div className="relative text-blue-300 overflow-hidden">
+    <div className="relative text-blue-300 flex flex-col justify-center items-center w-screen  ">
       {/* Faint Background Text */}
       <div className="flex justify-center items-center z-0 pointer-events-none">
         <h1 className="text-blue-300/70 text-[8vw] font-bold  leading-none whitespace-nowrap text-center">

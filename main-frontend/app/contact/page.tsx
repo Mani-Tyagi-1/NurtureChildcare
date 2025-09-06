@@ -387,7 +387,7 @@ export default function ContactUs() {
           </div>
 
           {/* Contact Details */}
-          <div className=" h-[70%] mt-10 bg-gradient-to-br from-[#3fb5dd] via-blue-500 to-[#3fb5dd] text-white rounded-xl p-8 shadow-lg flex flex-col justify-center space-y-6 border-2 border-[#3fb5dd] border-opacity-50">
+          <div className=" h-[70%] mt-10 bg-gradient-to-br from-[#3fb5dd] via-blue-500 to-[#3fb5dd] text-white rounded-xl p-8 shadow-lg flex flex-col justify-center space-y-6 border-2 border-[#3fb5dd] border-opacity-50 py-15">
             <h3 className="text-xl font-semibold mb-4 text-white]">
               Get In Touch
             </h3>

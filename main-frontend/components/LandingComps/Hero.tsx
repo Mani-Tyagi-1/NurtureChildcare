@@ -18,7 +18,6 @@ type Testimonial = {
   createdAt: string;
 };
 
-
 export default function Hero() {
   const [alltestimonials, setAllTestimonials] = useState<Testimonial[]>([]);
   const [loading, setLoading] = useState(true);
@@ -31,16 +30,7 @@ export default function Hero() {
 
   const springConfig = { stiffness: 300, damping: 30, bounce: 100 };
 
-  // ✅ Reduced from 1000 to 300
-  const translateX = useSpring(
-    useTransform(scrollYProgress, [0, 1], [0, 100]),
-    springConfig
-  );
-  const translateXReverse = useSpring(
-    useTransform(scrollYProgress, [0, 1], [0, -100]),
-    springConfig
-  );
-
+  // Parallax springs
   const rotateX = useSpring(
     useTransform(scrollYProgress, [0, 0.2], [10, 0]),
     springConfig
@@ -54,18 +44,14 @@ export default function Hero() {
     springConfig
   );
   const translateY = useSpring(
-    useTransform(scrollYProgress, [0, 0.2], [-500, 300]),
+    useTransform(scrollYProgress, [0, 0.2], [-500, 100]),
     springConfig
   );
-
-
-
-
 
   useEffect(() => {
     const fetchTestimonials = async () => {
       try {
-        const res = await fetch("http://localhost:5000/api/testimonials",);
+        const res = await fetch("http://localhost:5000/api/testimonials");
         if (!res.ok) throw new Error("Failed to fetch");
         const data = await res.json();
         setAllTestimonials(data);
@@ -79,12 +65,10 @@ export default function Hero() {
     fetchTestimonials();
   }, []);
 
-
-
   return (
     <section
       ref={ref}
-      className="relative w-full h-[60vh]  md:h-[200vh] overflow-hidden bg-[var(--color-background)] text-[var(--color-text)]"
+      className="relative w-full h-[60vh] md:h-[200vh] overflow-hidden bg-[var(--color-background)] text-[var(--color-text)]"
     >
       {/* Background */}
       <div className="absolute inset-0 w-full h-full bg-[var(--color-background)] opacity-20 z-10 " />
@@ -99,60 +83,126 @@ export default function Hero() {
         }}
         className="hidden md:block absolute top-[60%] md:top-[20%] left-[5%] w-[100%] pt-30 px-4 z-0 [perspective:1000px] [transform-style:preserve-3d] overflow-hidden"
       >
+        {/* INFINITE RIGHT-TO-LEFT MARQUEE TRACK */}
         <motion.div
-          className="flex flex-row-reverse space-x-reverse space-x-10 mb-0 pt-0"
-          animate={{ x: ["0%", "-50%"] }}
-          transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-          style={{width: '200%'}}
+          className="flex mb-0 pt-0 will-change-transform mt-35 mb-10"
+          initial={{ x: 0 }}
+          animate={{ x: "-50%" }}
+          transition={{ duration: 25, ease: "linear", repeat: Infinity }}
         >
+          {/* Grid A (original) */}
           {loading ? (
-            <p className="text-center text-gray-500">Loading testimonials...</p>
+            <div className="grid gap-8 sm:grid-rows-3 lg:grid-rows-3 mt-2 grid-flow-col justify-center">
+              <p className="text-center text-gray-500">
+                Loading testimonials...
+              </p>
+            </div>
           ) : alltestimonials.length === 0 ? (
-            <p className="text-center text-gray-500">
-              No testimonials available.
-            </p>
+            <div className="grid gap-8 sm:grid-rows-3 lg:grid-rows-3 mt-2 grid-flow-col justify-center">
+              <p className="text-center text-gray-500">
+                No testimonials available.
+              </p>
+            </div>
           ) : (
-            <>
-              {/* Original Testimonials */}
-              <div className="grid gap-8 sm:grid-rows-3 lg:grid-rows-3= mt-2 grid-flow-col justify-center">
-                {alltestimonials.map((testimonial) => (
-                  <TestimonialCard
-                    key={testimonial._id}
-                    testimonial={{
-                      name: testimonial.name,
-                      review: testimonial.message,
-                      rating: 5,
-                      date: testimonial.createdAt,
-                      avatar: testimonial.photo,
-                    }}
-                  />
-                ))}
-              </div>
+            <div className="grid gap-8 sm:grid-rows-3 lg:grid-rows-3 mt-2 grid-flow-col justify-center">
+              {alltestimonials.map((testimonial) => (
+                <TestimonialCard
+                  key={testimonial._id}
+                  testimonial={{
+                    name: testimonial.name,
+                    review: testimonial.message,
+                    rating: 5,
+                    date: testimonial.createdAt,
+                    avatar: testimonial.photo,
+                  }}
+                />
+              ))}
+            </div>
+          )}
 
-              {/* Duplicated Testimonials for seamless loop */}
-              <div className="grid gap-8 sm:grid-rows-3 lg:grid-rows-3 mt-2 grid-flow-col justify-center">
-                {alltestimonials.map((testimonial, index) => (
-                  <TestimonialCard
-                    key={`duplicate-${testimonial._id}-${index}`}
-                    testimonial={{
-                      name: testimonial.name,
-                      review: testimonial.message,
-                      rating: 5,
-                      date: testimonial.createdAt,
-                      avatar: testimonial.photo,
-                    }}
-                  />
-                ))}
-              </div>
-            </>
+          {/* Grid B (duplicate for seamless loop) */}
+          {loading ? (
+            <div
+              className="grid gap-8 sm:grid-rows-3 lg:grid-rows-3 mt-2 grid-flow-col justify-center"
+              aria-hidden="true"
+            >
+              <p className="text-center text-gray-500">
+                Loading testimonials...
+              </p>
+            </div>
+          ) : alltestimonials.length === 0 ? (
+            <div
+              className="grid gap-8 sm:grid-rows-3 lg:grid-rows-3 mt-2 grid-flow-col justify-center"
+              aria-hidden="true"
+            >
+              <p className="text-center text-gray-500">
+                No testimonials available.
+              </p>
+            </div>
+          ) : (
+            <div
+              className="grid gap-8 sm:grid-rows-3 lg:grid-rows-3 mt-2 grid-flow-col justify-center ml-8"
+              aria-hidden="true"
+            >
+              {alltestimonials.map((testimonial, index) => (
+                <TestimonialCard
+                  key={`duplicate-${testimonial._id}-${index}`}
+                  testimonial={{
+                    name: testimonial.name,
+                    review: testimonial.message,
+                    rating: 5,
+                    date: testimonial.createdAt,
+                    avatar: testimonial.photo,
+                  }}
+                />
+              ))}
+            </div>
+          )}
+
+          {/* Grid C (duplicate for seamless loop) */}
+          {loading ? (
+            <div
+              className="grid gap-8 sm:grid-rows-3 lg:grid-rows-3 mt-2 grid-flow-col justify-center"
+              aria-hidden="true"
+            >
+              <p className="text-center text-gray-500">
+                Loading testimonials...
+              </p>
+            </div>
+          ) : alltestimonials.length === 0 ? (
+            <div
+              className="grid gap-8 sm:grid-rows-3 lg:grid-rows-3 mt-2 grid-flow-col justify-center"
+              aria-hidden="true"
+            >
+              <p className="text-center text-gray-500">
+                No testimonials available.
+              </p>
+            </div>
+          ) : (
+            <div
+              className="grid gap-8 sm:grid-rows-3 lg:grid-rows-3 mt-2 grid-flow-col justify-center ml-8"
+              aria-hidden="true"
+            >
+              {alltestimonials.map((testimonial, index) => (
+                <TestimonialCard
+                  key={`duplicate-${testimonial._id}-${index}`}
+                  testimonial={{
+                    name: testimonial.name,
+                    review: testimonial.message,
+                    rating: 5,
+                    date: testimonial.createdAt,
+                    avatar: testimonial.photo,
+                  }}
+                />
+              ))}
+            </div>
           )}
         </motion.div>
       </motion.div>
 
-
-      <div className="relative z-5 flex top-55 flex-col items-center px-5">
+      <div className="relative z-[20] flex top-55 flex-col items-center px-5">
         {/* Lamp Layer */}
-        <div className="absolute top-1/3 w-full h-[57%] scale-y-125 flex items-center justify-center isolate z-10">
+        <div className="absolute top-1/3 w-full h-[57%] scale-y-125 flex items-center justify-center isolate z-10 pointer-events-none">
           <motion.div
             initial={{ width: "10rem" }}
             whileInView={{ width: "30rem" }}
@@ -169,7 +219,7 @@ export default function Hero() {
         </div>
 
         {/* Desktop Hero Content */}
-        <div className="hidden  absolute top-[40%] left-0 w-full z-50 md:flex flex-col items-center px-5 text-center">
+        <div className="hidden absolute top-[40%] left-0 w-full z-[100] md:flex flex-col items-center px-5 text-center">
           <motion.div
             className="px-4"
             initial={{ opacity: 0 }}

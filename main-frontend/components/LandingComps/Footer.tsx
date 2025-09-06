@@ -420,8 +420,8 @@ export default function Footer() {
             creative professionals.
           </p>
         </motion.div> */}
-        <BackgroundFooter/>
       </div>
+        <BackgroundFooter/>
     </motion.footer>
   );
 }
