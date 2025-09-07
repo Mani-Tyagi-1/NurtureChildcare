@@ -9,6 +9,7 @@ import BlogDetails from "./Components/Home/BlogsDetails";
 import Gallery from "./Components/Home/Gallery";
 import AlbumDetails from "./Components/Home/AlbumDetails";
 import Founder from "./Components/Home/Founder";
+import Profile from "./Components/Home/Profile";
 
 interface ProtectedRouteProps {
   element: React.ReactNode;
@@ -19,7 +20,7 @@ const ProtectedRoute = ({ element }: ProtectedRouteProps) => {
 
   // If the token does not exist, navigate to login page, else render the element
   if (!token) {
-    return <Navigate to="/" />; // Redirect to /login if the user is not authenticated
+    return <Navigate to="/" />; // Redirect to / if the user is not authenticated
   }
 
   return <>{element}</>; // If authenticated, render the protected component
@@ -27,7 +28,7 @@ const ProtectedRoute = ({ element }: ProtectedRouteProps) => {
 
 const App = () => {
 
-  const token = localStorage.getItem('token');
+  // const token = localStorage.getItem('token');
 
   return (
     <Routes>
@@ -62,7 +63,10 @@ const App = () => {
         path="/founder"
         element={<ProtectedRoute element={<Founder />} />}
       />
-
+      <Route
+        path="/profile"
+        element={<ProtectedRoute element={<Profile />} />}
+      />
       {/* Redirect to home if authenticated */}
 
       {/* PNF later */}

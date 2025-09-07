@@ -46,7 +46,7 @@ const Layout: React.FC<LayoutProps> = ({ pageContent }) => {
 
     const handleLogout = () => {
         logout();
-        navigate('/login');
+        navigate('/');
     };
 
     const handleProfile = () => {

@@ -1,15 +1,24 @@
-import mongoose from "mongoose";
+import { Schema, model, Document } from "mongoose";
 
-const founderSchema = new mongoose.Schema(
+export interface IFounder extends Document {
+  name: string;
+  title: string;
+  bio: string;
+  image: string;
+  badges: string[];
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+const FounderSchema = new Schema<IFounder>(
   {
-    name: { type: String, required: true },
-    title: { type: String, required: true },
-    bio: { type: String, required: true },
-    image: { type: String, required: true },
-    badges: [{ type: String }],
+    name: { type: String, required: true, trim: true },
+    title: { type: String, required: true, trim: true },
+    bio: { type: String, required: true, trim: true },
+    image: { type: String, required: true, trim: true },
+    badges: { type: [String], default: [] },
   },
-  { timestamps: true } 
+  { timestamps: true }
 );
 
-const Founder = mongoose.model("Founder", founderSchema);
-export default Founder;
+export default model<IFounder>("Founder", FounderSchema);
