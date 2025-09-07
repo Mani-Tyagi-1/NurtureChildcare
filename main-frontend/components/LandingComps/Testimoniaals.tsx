@@ -79,7 +79,7 @@ export default function TestimonialsSection() {
       ) : alltestimonials.length === 0 ? (
         <p className="text-center text-gray-500">No testimonials available.</p>
       ) : (
-        <div className="relative w-full flex justify-center items-center">
+        <div className="relative w-full flex justify-center items-center  pl-3">
           <motion.div
             key={alltestimonials[index]._id}
             drag="x"
@@ -91,7 +91,7 @@ export default function TestimonialsSection() {
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: -100 }}
             transition={{ duration: 0.5 }}
-            className="w-full max-w-sm mx-auto cursor-grab active:cursor-grabbing"
+            className="w-full max-w-sm  cursor-grab active:cursor-grabbing"
           >
             <TestimonialCard
               testimonial={{
