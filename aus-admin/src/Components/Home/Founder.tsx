@@ -75,7 +75,7 @@ const parseBadges = (input: string): string[] =>
     .filter((b) => b.length > 0);
 
 // --- Component ---
-export default function FounderPage(): JSX.Element {
+export function FounderPage(): JSX.Element {
   // Form fields
   const [name, setName] = useState<string>("");
   const [title, setTitle] = useState<string>("");
@@ -472,7 +472,7 @@ export default function FounderPage(): JSX.Element {
 import Layout from "./Layout";
 
 const Founder = () => {
-    return <Layout pageContent={<CreateFounder />} />;
+    return <Layout pageContent={<FounderPage />} />;
 };
 
 export default Founder;
