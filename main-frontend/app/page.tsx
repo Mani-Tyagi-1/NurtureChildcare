@@ -14,15 +14,21 @@ export default function Home() {
   
   return (
     <>
-      <Hero />
-      {/* <HeroParallax /> */}
-      <VideoSection />
-      <About />
-      <MissionPhilosophy />
-      {/* <TestimonialsSection /> */}
-      <NewsletterSection />
-      <FAQ />
-      <ContactForm />
-    </>
+  <Hero />
+  <div className="block md:hidden">
+    <TestimonialsSection />
+  </div>
+  {/* <HeroParallax /> */}
+  <VideoSection />
+  <About />
+  <MissionPhilosophy />
+
+  {/* Visible only on mobile */}
+  
+
+  <NewsletterSection />
+  <FAQ />
+  <ContactForm />
+</>
   );
 }
