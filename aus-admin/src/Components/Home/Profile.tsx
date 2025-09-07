@@ -19,6 +19,7 @@ import {
 import { useEffect, useMemo, useState } from "react";
 import { getAllAdmins, getCurrentAdmin } from "../../API/authService";
 import PasswordChangeCard from "./PasswordCard";
+import Layout from "./Layout";
 
 /**
  * Domain Types
@@ -215,7 +216,7 @@ const AdminsTable: React.FC<{ rows: ReadonlyArray<Admin> }> = ({ rows }) => {
   );
 };
 
-const ProfilePage: React.FC = () => {
+export const ProfilePage: React.FC = () => {
   const [me, setMe] = useState<Admin | null>(null);
   const [admins, setAdmins] = useState<Admin[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
@@ -321,4 +322,8 @@ const ProfilePage: React.FC = () => {
   );
 };
 
-export default ProfilePage;
+const Profile = () => {
+  return <Layout pageContent={<ProfilePage />} />;
+};
+export default Profile;
+
