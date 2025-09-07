@@ -467,4 +467,14 @@ export default function FounderPage(): JSX.Element {
       </Paper>
     </Container>
   );
-}
+};
+
+import Layout from "./Layout";
+
+const Founder = () => {
+    return <Layout pageContent={<CreateFounder />} />;
+};
+
+export default Founder;
+
+
