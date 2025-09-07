@@ -146,4 +146,12 @@ const CreateFounder = () => {
   );
 };
 
-export default CreateFounder;
+import Layout from "./Layout";
+
+const Founder = () => {
+    return <Layout pageContent={<CreateFounder />} />;
+};
+
+export default Founder;
+
+

@@ -1,9 +1,5 @@
 // // Updated Newsletter.tsx (Frontend) with DigitalOcean Spaces upload integration
-// import Layout from "./Layout";
 
-// const Newsletter = () => {
-//     return <Layout pageContent={<NewsletterContent />} />;
-// };
 
 // // NewsletterContent.tsx
 // import {
@@ -249,6 +245,15 @@ interface Newsletter {
   pdfUrl: string;
   createdAt: string;
 }
+
+import Layout from "./Layout";
+
+const Newsletter = () => {
+    return <Layout pageContent={<NewsletterContent />} />;
+};
+
+export default Newsletter;
+
 
 const NewsletterContent = () => {
   const [newsletters, setNewsletters] = useState<Newsletter[]>([]);
@@ -511,5 +516,5 @@ const NewsletterContent = () => {
   );
 };
 
-export default NewsletterContent;
+
 
